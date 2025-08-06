@@ -1,7 +1,14 @@
 {
-  "description": "Test subscription function model",
-  "type": "graphql",
-  "functionName": "subscription",
+  "filePath": "sample3/main.bal",
+  "description": "",
+  "start": {
+    "line": 32,
+    "offset": 4
+  },
+  "end": {
+    "line": 40,
+    "offset": 5
+  },
   "response": {
     "metadata": {
       "label": "Graphql Subscription",
@@ -16,7 +23,7 @@
       },
       "valueType": "IDENTIFIER",
       "value": "subscribe",
-      "enabled": false,
+      "enabled": true,
       "editable": false,
       "optional": false,
       "advanced": false
@@ -27,7 +34,7 @@
         "description": "The name of the field"
       },
       "valueType": "IDENTIFIER",
-      "value": "",
+      "value": "notifications",
       "enabled": true,
       "editable": true,
       "optional": false,
@@ -83,7 +90,7 @@
         "description": "The type of the field"
       },
       "valueType": "TYPE",
-      "value": "",
+      "value": "stream<string, error?>",
       "enabled": true,
       "editable": true,
       "optional": false,
@@ -91,11 +98,20 @@
     },
     "enabled": true,
     "optional": false,
-    "editable": false,
+    "editable": true,
     "canAddParameters": false,
     "codedata": {
-      "orgName": "ballerina",
-      "moduleName": "graphql"
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 32,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 40,
+          "offset": 5
+        }
+      }
     },
     "advanceProperties": {
       "annotations": {
@@ -113,13 +129,13 @@
           "placeholder": "{}",
           "valueType": "EXPRESSION",
           "valueTypeConstraint": "graphql:GraphqlResourceConfig",
-          "value": "",
+          "value": "{\n        cacheConfig: {\n            enabled: true\n        }\n    }",
           "typeMembers": [
             {
               "type": "GraphqlResourceConfig",
               "packageInfo": "ballerina:graphql:1.16.0",
               "kind": "RECORD_TYPE",
-              "selected": true
+              "selected": false
             }
           ],
           "enabled": true,
@@ -131,43 +147,47 @@
       "parameters": [
         {
           "metadata": {
-            "label": "Context",
-            "description": "The GraphQL Context object"
+            "label": "context",
+            "description": "context"
           },
-          "kind": "OPTIONAL",
+          "kind": "REQUIRED",
           "type": {
-            "placeholder": "string",
+            "metadata": {
+              "label": "Argument Type",
+              "description": "The type of the argument"
+            },
             "valueType": "TYPE",
-            "valueTypeConstraint": "graphql:Context",
-            "value": "",
+            "value": "graphql:Context",
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           },
-          "enabled": false,
-          "editable": false,
-          "optional": false,
-          "advanced": false
-        },
-        {
-          "metadata": {
-            "label": "Field",
-            "description": "The GraphQL Field object"
-          },
-          "kind": "OPTIONAL",
-          "type": {
-            "placeholder": "string",
-            "valueType": "TYPE",
-            "valueTypeConstraint": "graphql:Field",
-            "value": "",
+          "name": {
+            "metadata": {
+              "label": "Argument Name",
+              "description": "The name of the argument"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "context",
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           },
-          "enabled": false,
-          "editable": false,
+          "defaultValue": {
+            "metadata": {
+              "label": "Default Value",
+              "description": "The default value of the argument"
+            },
+            "valueType": "EXPRESSION",
+            "enabled": true,
+            "editable": true,
+            "optional": true,
+            "advanced": false
+          },
+          "enabled": true,
+          "editable": true,
           "optional": false,
           "advanced": false
         }

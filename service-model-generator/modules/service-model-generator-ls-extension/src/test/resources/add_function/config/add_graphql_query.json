@@ -135,7 +135,10 @@
       "isBasePath": false,
       "inDisplayAnnotation": false
     },
-    "annotations": {}
+    "advanceProperties": {
+      "annotations": {},
+      "parameters": []
+    }
   },
   "output": {
     "add_functions_for_graphql.bal": [

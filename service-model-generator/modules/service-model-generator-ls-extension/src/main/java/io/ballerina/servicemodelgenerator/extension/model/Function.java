@@ -58,12 +58,12 @@ public class Function {
     private boolean editable;
     private boolean canAddParameters;
     private Codedata codedata;
-    private Map<String, Value> annotations;
+    private AdvanceProperties advanceProperties;
 
     public Function(MetaData metadata, List<String> qualifiers, String kind, Value accessor, Value name,
                     List<Parameter> parameters, Map<String, Parameter> schema, FunctionReturnType returnType,
                     boolean enabled, boolean optional, boolean editable, boolean canAddParameters, Codedata codedata,
-                    Map<String, Value> annotations) {
+                    AdvanceProperties advanceProperties) {
         this.metadata = metadata;
         this.qualifiers = qualifiers;
         this.kind = kind;
@@ -76,7 +76,7 @@ public class Function {
         this.optional = optional;
         this.editable = editable;
         this.codedata = codedata;
-        this.annotations = annotations;
+        this.advanceProperties = advanceProperties;
     }
     public static Function getNewFunctionModel(ServiceClassUtil.ServiceClassContext context) {
         FunctionBuilder functionBuilder = new FunctionBuilder()
@@ -91,7 +91,7 @@ public class Function {
                     .returnType(returnType(FIELD_TYPE_METADATA))
                     .schema(Map.of(Constants.PARAMETER, Parameter.graphqlParamSchema()));
         } else if (context == TYPE_DIAGRAM) {
-           functionBuilder
+            functionBuilder
                     .name(name(RESOURCE_NAME_METADATA))
                     .returnType(returnType(RESOURCE_FUNCTION_RETURN_TYPE_METADATA))
                     .schema(Map.of(Constants.PARAMETER, Parameter.functionParamSchema()));
@@ -101,7 +101,7 @@ public class Function {
                     .returnType(returnType(FUNCTION_RETURN_TYPE_METADATA));
         }
         if (context == SERVICE_DIAGRAM) {
-           functionBuilder.schema(Map.of(Constants.PARAMETER, Parameter.functionParamSchema()));
+            functionBuilder.schema(Map.of(Constants.PARAMETER, Parameter.functionParamSchema()));
         }
         return functionBuilder.build();
     }
@@ -270,15 +270,15 @@ public class Function {
         this.schema = schema;
     }
 
-    public Map<String, Value> getAnnotations() {
-        if (annotations == null) {
-            annotations = new HashMap<>();
+    public AdvanceProperties getAdvanceProperties() {
+        if (advanceProperties == null) {
+            advanceProperties = new AdvanceProperties(null, null);
         }
-        return annotations;
+        return advanceProperties;
     }
 
-    public void setAnnotations(Map<String, Value> annotations) {
-        this.annotations = annotations;
+    public void setAdvanceProperties(AdvanceProperties advanceProperties) {
+        this.advanceProperties = advanceProperties;
     }
 
     public boolean isCanAddParameters() {
@@ -303,7 +303,7 @@ public class Function {
         private boolean optional = false;
         private boolean editable = false;
         private boolean canAddParameters = false;
-        private Map<String, Value> annotations;
+        private AdvanceProperties advanceProperties;
 
         public FunctionBuilder metadata(String label, String description) {
             this.metadata = new MetaData(label, description);
@@ -375,14 +375,14 @@ public class Function {
             return this;
         }
 
-        public FunctionBuilder setAnnotations(Map<String, Value> annotations) {
-            this.annotations = annotations;
+        public FunctionBuilder setAdvanceProperties(AdvanceProperties advanceProperties) {
+            this.advanceProperties = advanceProperties;
             return this;
         }
 
         public Function build() {
             return new Function(metadata, qualifiers, kind, accessor, name, parameters, schema, returnType, enabled,
-                    optional, editable, canAddParameters, codedata, annotations);
+                    optional, editable, canAddParameters, codedata, advanceProperties);
         }
     }
 }

@@ -661,33 +661,35 @@
         }
       }
     },
-    "annotations": {
-      "annotResourceConfig": {
-        "metadata": {
-          "label": "Resource Configuration",
-          "description": "Define advanced configurations like resource level media types, security, etc."
-        },
-        "codedata": {
-          "type": "ANNOTATION_ATTACHMENT",
-          "originalName": "ResourceConfig",
-          "orgName": "ballerina",
-          "moduleName": "http"
-        },
-        "placeholder": "{}",
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:HttpResourceConfig",
-        "typeMembers": [
-          {
-            "type": "HttpResourceConfig",
-            "packageInfo": "ballerina:http:2.14.0",
-            "kind": "RECORD_TYPE",
-            "selected": false
-          }
-        ],
-        "enabled": true,
-        "editable": true,
-        "optional": true,
-        "advanced": true
+    "advanceProperties": {
+      "annotations": {
+        "annotResourceConfig": {
+          "metadata": {
+            "label": "Resource Configuration",
+            "description": "Define advanced configurations like resource level media types, security, etc."
+          },
+          "codedata": {
+            "type": "ANNOTATION_ATTACHMENT",
+            "originalName": "ResourceConfig",
+            "orgName": "ballerina",
+            "moduleName": "http"
+          },
+          "placeholder": "{}",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:HttpResourceConfig",
+          "typeMembers": [
+            {
+              "type": "HttpResourceConfig",
+              "packageInfo": "ballerina:http:2.14.0",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ],
+          "enabled": true,
+          "editable": true,
+          "optional": true,
+          "advanced": true
+        }
       }
     }
   }

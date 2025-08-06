@@ -113,6 +113,10 @@
       "inListenerInit": false,
       "isBasePath": false,
       "inDisplayAnnotation": false
+    },
+    "advanceProperties": {
+      "annotations": {},
+      "parameters": []
     }
   },
   "output": {

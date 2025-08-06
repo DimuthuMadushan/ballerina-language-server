@@ -94,6 +94,82 @@
     "codedata": {
       "orgName": "ballerina",
       "moduleName": "graphql"
+    },
+    "advanceProperties": {
+      "annotations": {
+        "annotResourceConfig": {
+          "metadata": {
+            "label": "Resource Configuration",
+            "description": "Define resource configurations such as field level cache."
+          },
+          "codedata": {
+            "type": "ANNOTATION_ATTACHMENT",
+            "originalName": "ResourceConfig",
+            "orgName": "ballerina",
+            "moduleName": "graphql"
+          },
+          "placeholder": "{}",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "graphql:GraphqlResourceConfig",
+          "value": "",
+          "typeMembers": [
+            {
+              "type": "GraphqlResourceConfig",
+              "packageInfo": "ballerina:graphql:1.16.0",
+              "kind": "RECORD_TYPE",
+              "selected": true
+            }
+          ],
+          "enabled": true,
+          "editable": true,
+          "optional": true,
+          "advanced": true
+        }
+      },
+      "parameters": [
+        {
+          "metadata": {
+            "label": "Context",
+            "description": "The GraphQL Context object"
+          },
+          "kind": "OPTIONAL",
+          "type": {
+            "placeholder": "string",
+            "valueType": "TYPE",
+            "valueTypeConstraint": "graphql:Context",
+            "value": "",
+            "enabled": true,
+            "editable": false,
+            "optional": false,
+            "advanced": false
+          },
+          "enabled": false,
+          "editable": false,
+          "optional": false,
+          "advanced": false
+        },
+        {
+          "metadata": {
+            "label": "Field",
+            "description": "The GraphQL Field object"
+          },
+          "kind": "OPTIONAL",
+          "type": {
+            "placeholder": "string",
+            "valueType": "TYPE",
+            "valueTypeConstraint": "graphql:Field",
+            "value": "",
+            "enabled": true,
+            "editable": false,
+            "optional": false,
+            "advanced": false
+          },
+          "enabled": false,
+          "editable": false,
+          "optional": false,
+          "advanced": false
+        }
+      ]
     }
   }
 }

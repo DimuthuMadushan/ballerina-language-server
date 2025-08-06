@@ -31,11 +31,10 @@ import io.ballerina.servicemodelgenerator.extension.util.Constants;
 import io.ballerina.servicemodelgenerator.extension.util.Utils;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import static io.ballerina.servicemodelgenerator.extension.builder.function.GraphqlFunctionBuilder.getGraphqlFunctionModel;
+import static io.ballerina.servicemodelgenerator.extension.builder.FunctionBuilderRouter.getFunctionFromSource;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.GRAPHQL;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.getFunction;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.serviceTypeWithoutPrefix;
@@ -70,10 +69,9 @@ public class GraphqlServiceBuilder extends AbstractServiceBuilder {
 
         ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) context.node();
         extractServicePathInfo(serviceNode, serviceModel);
-
         List<Function> functionsInSource = serviceNode.members().stream()
                 .filter(member -> member instanceof FunctionDefinitionNode)
-                .map(member -> getGraphqlFunctionModel((FunctionDefinitionNode) member, Map.of()))
+                .map(member -> getFunctionFromSource(context.moduleName(), context.semanticModel(), member))
                 .toList();
 
         updateGraphqlServiceInfo(serviceModel, functionsInSource);

@@ -35,6 +35,7 @@ import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.modelgenerator.commons.Annotation;
 import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
+import io.ballerina.servicemodelgenerator.extension.model.AdvanceProperties;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
@@ -108,7 +109,7 @@ public class HttpFunctionBuilder extends AbstractFunctionBuilder {
             throw new RuntimeException("Failed to load HTTP resource function model");
         }
         Function functionModel = httpFunctionModel.get();
-        functionModel.setAnnotations(annotations);
+        functionModel.setAdvanceProperties(new AdvanceProperties(annotations, null));
         functionModel.getAccessor().setValue(functionDefinitionNode.functionName().text().trim());
         functionModel.getName().setValue(getPath(functionDefinitionNode.relativeResourcePath()));
 

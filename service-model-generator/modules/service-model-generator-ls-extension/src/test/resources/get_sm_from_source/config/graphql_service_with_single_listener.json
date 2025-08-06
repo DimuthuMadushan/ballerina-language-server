@@ -137,7 +137,7 @@
             "description": "The accessor of the function"
           },
           "valueType": "IDENTIFIER",
-          "enabled": true,
+          "enabled": false,
           "editable": true,
           "optional": false,
           "advanced": false
@@ -211,7 +211,7 @@
         },
         "enabled": true,
         "optional": false,
-        "editable": false,
+        "editable": true,
         "canAddParameters": true,
         "codedata": {
           "lineRange": {
@@ -226,13 +226,45 @@
             }
           }
         },
-        "annotations": {}
+        "advanceProperties": {
+          "annotations": {
+            "annotResourceConfig": {
+              "metadata": {
+                "label": "Resource Configuration",
+                "description": "Define resource configurations such as field level cache."
+              },
+              "codedata": {
+                "type": "ANNOTATION_ATTACHMENT",
+                "originalName": "ResourceConfig",
+                "orgName": "ballerina",
+                "moduleName": "graphql"
+              },
+              "placeholder": "{}",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "graphql:GraphqlResourceConfig",
+              "typeMembers": [
+                {
+                  "type": "GraphqlResourceConfig",
+                  "packageInfo": "ballerina:graphql:1.16.0",
+                  "kind": "RECORD_TYPE",
+                  "selected": false
+                }
+              ],
+              "enabled": true,
+              "editable": true,
+              "optional": true,
+              "advanced": true
+            }
+          },
+          "parameters": []
+        }
       },
       {
         "metadata": {
           "label": "Graphql Query",
           "description": "Graphql Query"
         },
+        "qualifiers": [],
         "kind": "QUERY",
         "accessor": {
           "metadata": {
@@ -242,7 +274,7 @@
           "valueType": "IDENTIFIER",
           "value": "get",
           "enabled": true,
-          "editable": true,
+          "editable": false,
           "optional": false,
           "advanced": false
         },
@@ -314,6 +346,7 @@
                 "description": "The type of the argument"
               },
               "valueType": "TYPE",
+              "value": "",
               "enabled": true,
               "editable": true,
               "optional": false,
@@ -325,6 +358,7 @@
                 "description": "The name of the argument"
               },
               "valueType": "IDENTIFIER",
+              "value": "",
               "enabled": true,
               "editable": true,
               "optional": false,
@@ -335,14 +369,13 @@
                 "label": "Default Value",
                 "description": "The default value of the argument"
               },
-              "valueType": "EXPRESSION",
               "enabled": true,
               "editable": true,
               "optional": true,
               "advanced": false
             },
             "enabled": true,
-            "editable": true,
+            "editable": false,
             "optional": false,
             "advanced": false
           }
@@ -357,13 +390,13 @@
           "value": "string",
           "enabled": true,
           "editable": true,
-          "optional": true,
+          "optional": false,
           "advanced": false
         },
         "enabled": true,
         "optional": false,
-        "editable": false,
-        "canAddParameters": true,
+        "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -377,13 +410,45 @@
             }
           }
         },
-        "annotations": {}
+        "advanceProperties": {
+          "annotations": {
+            "annotResourceConfig": {
+              "metadata": {
+                "label": "Resource Configuration",
+                "description": "Define resource configurations such as field level cache."
+              },
+              "codedata": {
+                "type": "ANNOTATION_ATTACHMENT",
+                "originalName": "ResourceConfig",
+                "orgName": "ballerina",
+                "moduleName": "graphql"
+              },
+              "placeholder": "{}",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "graphql:GraphqlResourceConfig",
+              "typeMembers": [
+                {
+                  "type": "GraphqlResourceConfig",
+                  "packageInfo": "ballerina:graphql:1.16.0",
+                  "kind": "RECORD_TYPE",
+                  "selected": false
+                }
+              ],
+              "enabled": true,
+              "editable": true,
+              "optional": true,
+              "advanced": true
+            }
+          },
+          "parameters": []
+        }
       },
       {
         "metadata": {
           "label": "Graphql Mutation",
           "description": "Graphql Mutation"
         },
+        "qualifiers": [],
         "kind": "MUTATION",
         "accessor": {
           "metadata": {
@@ -391,8 +456,8 @@
             "description": "The accessor of the function"
           },
           "valueType": "IDENTIFIER",
-          "enabled": true,
-          "editable": true,
+          "enabled": false,
+          "editable": false,
           "optional": false,
           "advanced": false
         },
@@ -510,6 +575,7 @@
                 "description": "The type of the argument"
               },
               "valueType": "TYPE",
+              "value": "",
               "enabled": true,
               "editable": true,
               "optional": false,
@@ -521,6 +587,7 @@
                 "description": "The name of the argument"
               },
               "valueType": "IDENTIFIER",
+              "value": "",
               "enabled": true,
               "editable": true,
               "optional": false,
@@ -531,14 +598,13 @@
                 "label": "Default Value",
                 "description": "The default value of the argument"
               },
-              "valueType": "EXPRESSION",
               "enabled": true,
               "editable": true,
               "optional": true,
               "advanced": false
             },
             "enabled": true,
-            "editable": true,
+            "editable": false,
             "optional": false,
             "advanced": false
           }
@@ -553,13 +619,13 @@
           "value": "Profile|error",
           "enabled": true,
           "editable": true,
-          "optional": true,
+          "optional": false,
           "advanced": false
         },
         "enabled": true,
         "optional": false,
-        "editable": false,
-        "canAddParameters": true,
+        "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -573,13 +639,45 @@
             }
           }
         },
-        "annotations": {}
+        "advanceProperties": {
+          "annotations": {
+            "annotResourceConfig": {
+              "metadata": {
+                "label": "Resource Configuration",
+                "description": "Define resource configurations such as field level cache."
+              },
+              "codedata": {
+                "type": "ANNOTATION_ATTACHMENT",
+                "originalName": "ResourceConfig",
+                "orgName": "ballerina",
+                "moduleName": "graphql"
+              },
+              "placeholder": "{}",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "graphql:GraphqlResourceConfig",
+              "typeMembers": [
+                {
+                  "type": "GraphqlResourceConfig",
+                  "packageInfo": "ballerina:graphql:1.16.0",
+                  "kind": "RECORD_TYPE",
+                  "selected": false
+                }
+              ],
+              "enabled": true,
+              "editable": true,
+              "optional": true,
+              "advanced": true
+            }
+          },
+          "parameters": []
+        }
       },
       {
         "metadata": {
           "label": "Graphql Subscription",
           "description": "Graphql Subscription"
         },
+        "qualifiers": [],
         "kind": "SUBSCRIPTION",
         "accessor": {
           "metadata": {
@@ -589,7 +687,7 @@
           "valueType": "IDENTIFIER",
           "value": "subscribe",
           "enabled": true,
-          "editable": true,
+          "editable": false,
           "optional": false,
           "advanced": false
         },
@@ -614,6 +712,7 @@
                 "description": "The type of the argument"
               },
               "valueType": "TYPE",
+              "value": "",
               "enabled": true,
               "editable": true,
               "optional": false,
@@ -625,6 +724,7 @@
                 "description": "The name of the argument"
               },
               "valueType": "IDENTIFIER",
+              "value": "",
               "enabled": true,
               "editable": true,
               "optional": false,
@@ -635,14 +735,13 @@
                 "label": "Default Value",
                 "description": "The default value of the argument"
               },
-              "valueType": "EXPRESSION",
               "enabled": true,
               "editable": true,
               "optional": true,
               "advanced": false
             },
             "enabled": true,
-            "editable": true,
+            "editable": false,
             "optional": false,
             "advanced": false
           }
@@ -657,13 +756,13 @@
           "value": "stream<string, error?>",
           "enabled": true,
           "editable": true,
-          "optional": true,
+          "optional": false,
           "advanced": false
         },
         "enabled": true,
         "optional": false,
-        "editable": false,
-        "canAddParameters": true,
+        "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -677,7 +776,38 @@
             }
           }
         },
-        "annotations": {}
+        "advanceProperties": {
+          "annotations": {
+            "annotResourceConfig": {
+              "metadata": {
+                "label": "Resource Configuration",
+                "description": "Define resource configurations such as field level cache."
+              },
+              "codedata": {
+                "type": "ANNOTATION_ATTACHMENT",
+                "originalName": "ResourceConfig",
+                "orgName": "ballerina",
+                "moduleName": "graphql"
+              },
+              "placeholder": "{}",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "graphql:GraphqlResourceConfig",
+              "typeMembers": [
+                {
+                  "type": "GraphqlResourceConfig",
+                  "packageInfo": "ballerina:graphql:1.16.0",
+                  "kind": "RECORD_TYPE",
+                  "selected": false
+                }
+              ],
+              "enabled": true,
+              "editable": true,
+              "optional": true,
+              "advanced": true
+            }
+          },
+          "parameters": []
+        }
       }
     ]
   }
