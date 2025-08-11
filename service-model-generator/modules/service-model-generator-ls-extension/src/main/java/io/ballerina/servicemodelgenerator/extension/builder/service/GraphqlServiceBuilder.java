@@ -18,18 +18,27 @@
 
 package io.ballerina.servicemodelgenerator.extension.builder.service;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.ObjectFieldNode;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
 import io.ballerina.servicemodelgenerator.extension.builder.ServiceBuilderRouter;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
+import io.ballerina.servicemodelgenerator.extension.model.Field;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.MetaData;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
+import io.ballerina.servicemodelgenerator.extension.model.context.GetModelContext;
 import io.ballerina.servicemodelgenerator.extension.model.context.ModelFromSourceContext;
 import io.ballerina.servicemodelgenerator.extension.util.Constants;
 import io.ballerina.servicemodelgenerator.extension.util.Utils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -37,8 +46,10 @@ import java.util.Optional;
 
 import static io.ballerina.servicemodelgenerator.extension.builder.function.GraphqlFunctionBuilder.getGraphqlFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.GRAPHQL;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.buildClassField;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.getFunction;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.serviceTypeWithoutPrefix;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateField;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateFunction;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateListenerItems;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isPresent;
@@ -51,6 +62,23 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateAnno
  * @since 1.2.0
  */
 public class GraphqlServiceBuilder extends AbstractServiceBuilder {
+
+    private static final String GRAPHQL_SERVICE_MODEL_LOCATION = "services/graphql.json";
+
+    public Optional<Service> getModelTemplate(GetModelContext context) {
+        InputStream resourceStream = HttpServiceBuilder.class.getClassLoader()
+                .getResourceAsStream(GRAPHQL_SERVICE_MODEL_LOCATION);
+        if (resourceStream == null) {
+            return Optional.empty();
+        }
+
+        try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
+            Service service = new Gson().fromJson(reader, Service.class);
+            return Optional.of(service);
+        } catch (IOException e) {
+            return Optional.empty();
+        }
+    }
 
     @Override
     public Service getModelFromSource(ModelFromSourceContext context) {
@@ -75,8 +103,12 @@ public class GraphqlServiceBuilder extends AbstractServiceBuilder {
                 .filter(member -> member instanceof FunctionDefinitionNode)
                 .map(member -> getGraphqlFunctionModel((FunctionDefinitionNode) member, Map.of()))
                 .toList();
-
-        updateGraphqlServiceInfo(serviceModel, functionsInSource);
+        updateGraphqlFunctionInfo(serviceModel, functionsInSource);
+        List<Field> fieldsInSource = serviceNode.members().stream()
+                .filter(member -> member instanceof ObjectFieldNode)
+                .map(member -> buildClassField((ObjectFieldNode) member))
+                .toList();
+        updateGraphqlFieldInfo(serviceModel, fieldsInSource);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
         populateListenerInfo(serviceModel, serviceNode);
         updateAnnotationAttachmentProperty(serviceNode, serviceModel);
@@ -89,7 +121,7 @@ public class GraphqlServiceBuilder extends AbstractServiceBuilder {
         return GRAPHQL;
     }
 
-    public static void updateGraphqlServiceInfo(Service serviceModel, List<Function> functionsInSource) {
+    public static void updateGraphqlFunctionInfo(Service serviceModel, List<Function> functionsInSource) {
         Utils.populateRequiredFunctions(serviceModel);
 
         // mark the enabled functions as true if they present in the source
@@ -108,6 +140,26 @@ public class GraphqlServiceBuilder extends AbstractServiceBuilder {
             if (serviceModel.getFunctions().stream().noneMatch(newFunction -> isPresent(funcInSource, newFunction))) {
                 updateGraphqlFunctionMetaData(funcInSource);
                 serviceModel.addFunction(funcInSource);
+            }
+        });
+    }
+
+    public static void updateGraphqlFieldInfo(Service serviceModel, List<Field> fieldsInSource) {
+
+        serviceModel.getFields().forEach(fieldModel -> {
+            Optional<Field> fields = fieldsInSource.stream()
+                    .filter(newField -> isPresent(fieldModel, newField)
+                            && newField.getKind().equals(fieldModel.getKind()))
+                    .findFirst();
+            fieldModel.setEditable(false);
+            fields.ifPresentOrElse(
+                    field -> updateField(fieldModel, field, serviceModel),
+                    () -> fieldModel.setEnabled(false));
+        });
+
+        fieldsInSource.forEach(fieldInSource -> {
+            if (serviceModel.getFields().stream().noneMatch(newField -> isPresent(fieldInSource, newField))) {
+                serviceModel.addField(fieldInSource);
             }
         });
     }

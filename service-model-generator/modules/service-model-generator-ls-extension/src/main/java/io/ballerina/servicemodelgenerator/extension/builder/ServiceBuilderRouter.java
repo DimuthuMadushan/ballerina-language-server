@@ -73,7 +73,7 @@ public class ServiceBuilderRouter {
     }
 
     public static Optional<Service> getModelTemplate(String orgName, String moduleName) {
-        NodeBuilder<?> serviceBuilder = getServiceBuilder(moduleName);
+        NodeBuilder<Service> serviceBuilder = getServiceBuilder(moduleName);
         GetModelContext context = GetModelContext.fromOrgAndModule(orgName, moduleName);
         Optional<?> modelTemplate = serviceBuilder.getModelTemplate(context);
         if (modelTemplate.isEmpty() || !(modelTemplate.get() instanceof Service)) {

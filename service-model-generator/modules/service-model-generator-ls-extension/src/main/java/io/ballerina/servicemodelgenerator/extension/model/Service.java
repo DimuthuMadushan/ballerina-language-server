@@ -46,11 +46,12 @@ public class Service {
     private Map<String, Value> properties;
     private Codedata codedata;
     private List<Function> functions;
+    private List<Field> fields;
 
     public Service(String id, String name, String type, String displayName, String description,
-                   String moduleName, String orgName, String version,
-                   String packageName, String listenerProtocol, String icon, Map<String, Value> properties,
-                   Codedata codedata, List<Function> functions) {
+                   String moduleName, String orgName, String version, String packageName, String listenerProtocol,
+                   String icon, Map<String, Value> properties, Codedata codedata, List<Function> functions,
+                   List<Field> fields) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -65,6 +66,7 @@ public class Service {
         this.properties = properties;
         this.functions = functions;
         this.codedata = codedata;
+        this.fields = fields;
     }
 
     public List<Function> getFunctions() {
@@ -210,10 +212,23 @@ public class Service {
         }
     }
 
+    public List<Field> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<Field> fields) {
+        this.fields = fields;
+    }
+
+    public void addField(Field field) {
+        this.fields.add(field);
+    }
+
     public static Service getEmptyServiceModel() {
         return new Service.ServiceModelBuilder()
                 .setFunctions(new ArrayList<>())
                 .setProperties(new HashMap<>())
+                .setField(new ArrayList<>())
                 .build();
     }
 
@@ -232,6 +247,7 @@ public class Service {
         private Map<String, Value> properties;
         private Codedata codedata;
         private List<Function> functions;
+        private List<Field> fields;
 
         public ServiceModelBuilder() {
             this.properties = new HashMap<>();
@@ -308,9 +324,14 @@ public class Service {
             return this;
         }
 
+        public ServiceModelBuilder setField(List<Field> fields) {
+            this.fields = fields;
+            return this;
+        }
+
         public Service build() {
             return new Service(id, name, type, displayName, description, moduleName, orgName,
-                    version, packageName, listenerProtocol, icon, properties, codedata, functions);
+                    version, packageName, listenerProtocol, icon, properties, codedata, functions, fields);
         }
     }
 }

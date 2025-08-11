@@ -679,6 +679,78 @@
         },
         "annotations": {}
       }
+    ],
+    "fields": [
+      {
+        "isPrivate": true,
+        "isFinal": true,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 22,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 22,
+              "offset": 96
+            }
+          }
+        },
+        "type": {
+          "metadata": {
+            "label": "Field Type",
+            "description": "The type of the field"
+          },
+          "valueType": "TYPE",
+          "value": "readonly & string[]",
+          "enabled": true,
+          "editable": true,
+          "optional": false,
+          "advanced": false
+        },
+        "name": {
+          "metadata": {
+            "label": "Field Name",
+            "description": "The name of the field"
+          },
+          "codedata": {
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 22,
+                "offset": 38
+              },
+              "endLine": {
+                "line": 22,
+                "offset": 43
+              }
+            }
+          },
+          "valueType": "IDENTIFIER",
+          "value": "names",
+          "enabled": true,
+          "editable": false,
+          "optional": false,
+          "advanced": false
+        },
+        "defaultValue": {
+          "metadata": {
+            "label": "Initial Value",
+            "description": "The initial value of the filed"
+          },
+          "valueType": "EXPRESSION",
+          "value": "[\"Walter White\", \"Jesse Pinkman\", \"Saul Goodman\"]",
+          "enabled": true,
+          "editable": true,
+          "optional": true,
+          "advanced": false
+        },
+        "enabled": true,
+        "editable": false,
+        "optional": false,
+        "advanced": false
+      }
     ]
   }
 }

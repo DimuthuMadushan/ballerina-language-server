@@ -36,6 +36,7 @@ import io.ballerina.modelgenerator.commons.ServiceDeclaration;
 import io.ballerina.modelgenerator.commons.ServiceTypeFunction;
 import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
+import io.ballerina.servicemodelgenerator.extension.model.Field;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
 import io.ballerina.servicemodelgenerator.extension.model.MetaData;
@@ -111,6 +112,14 @@ public class ServiceModelUtils {
                 requiredFunctions.setValue(source.getName().getValue());
             }
         }
+    }
+
+    public static void updateField(Field target, Field source, Service service) {
+        target.setEnabled(source.isEnabled());
+        updateValue(target.getName(), source.getName());
+        updateValue(target.getDefaultValue(), source.getDefaultValue());
+        updateValue(target.getType(), source.getType());
+        target.setMetadata(source.getMetadata());
     }
 
     private static boolean isEqual(Value target, Value source) {

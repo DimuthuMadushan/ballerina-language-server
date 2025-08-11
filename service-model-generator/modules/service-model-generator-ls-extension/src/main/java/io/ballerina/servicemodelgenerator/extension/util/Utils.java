@@ -53,6 +53,7 @@ import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.projects.Document;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
+import io.ballerina.servicemodelgenerator.extension.model.Field;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
 import io.ballerina.servicemodelgenerator.extension.model.HttpResponse;
@@ -477,6 +478,11 @@ public final class Utils {
         return newFunction.getName().getValue().equals(functionModel.getName().getValue()) &&
                 (Objects.isNull(newFunction.getAccessor()) || Objects.isNull(functionModel.getAccessor()) ||
                         newFunction.getAccessor().getValue().equals(functionModel.getAccessor().getValue()));
+    }
+
+    public static boolean isPresent(Field fieldModel, Field newField) {
+        return newField.getName().getValue().equals(fieldModel.getName().getValue()) &&
+                newField.getType().getValue().equals(fieldModel.getType().getValue());
     }
 
     public static void updateValue(Value target, Value source) {

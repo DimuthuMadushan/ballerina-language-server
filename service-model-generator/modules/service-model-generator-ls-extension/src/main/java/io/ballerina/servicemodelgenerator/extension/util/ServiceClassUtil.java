@@ -175,7 +175,7 @@ public class ServiceClassUtil {
         return functionModel;
     }
 
-    private static Field buildClassField(ObjectFieldNode objectField) {
+    public static Field buildClassField(ObjectFieldNode objectField) {
         Parameter parameterModel = Parameter.getNewField();
         Value type = parameterModel.getType();
         type.setValue(objectField.typeName().toSourceCode().trim());
