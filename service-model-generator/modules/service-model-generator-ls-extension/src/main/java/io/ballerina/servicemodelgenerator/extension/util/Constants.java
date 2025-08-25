@@ -39,6 +39,7 @@ public class Constants {
     public static final String IMPORT_STMT_TEMPLATE = "%nimport %s/%s;%n";
     public static final String AT = "@";
     public static final String COLON = ":";
+    public static final String QUESTION_MARK = "?";
 
     public static final String SINGLE_SELECT_VALUE = "SINGLE_SELECT";
     public static final String MULTIPLE_SELECT_VALUE = "MULTIPLE_SELECT";
@@ -168,7 +169,7 @@ public class Constants {
     // GraphQL function property keys
     public static final String GRAPHQL_CONTEXT_KEY = "paramContext";
     public static final String GRAPHQL_FIELD_KEY = "paramField";
-    public static final String VALUE_FIELD = "value";
+    public static final String GRAPHQL_NULLABLE_KEY = "typeNullability";
 
     private Constants() {
     }

@@ -61,12 +61,14 @@ import static io.ballerina.servicemodelgenerator.extension.util.Constants.GRAPHQ
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.GRAPHQL_CONTEXT_KEY;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.GRAPHQL_FIELD;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.GRAPHQL_FIELD_KEY;
+import static io.ballerina.servicemodelgenerator.extension.util.Constants.GRAPHQL_NULLABLE_KEY;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.KIND_DEFAULT;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.KIND_DEFAULTABLE;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.KIND_MUTATION;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.KIND_QUERY;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.KIND_REQUIRED;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.KIND_SUBSCRIPTION;
+import static io.ballerina.servicemodelgenerator.extension.util.Constants.QUESTION_MARK;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.REMOTE;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.SUBSCRIBE;
 import static io.ballerina.servicemodelgenerator.extension.util.Constants.VALUE_TYPE_EXPRESSION;
@@ -76,6 +78,7 @@ import static io.ballerina.servicemodelgenerator.extension.util.Constants.OBJECT
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.GRAPHQL_DIAGRAM;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.SERVICE_DIAGRAM;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getValueString;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isInitFunction;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateAnnotationAttachmentProperty;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateValue;
@@ -96,12 +99,14 @@ public class GraphqlFunctionBuilder extends AbstractFunctionBuilder {
     @Override
     public Map<String, List<TextEdit>> addModel(AddModelContext context) throws Exception {
         updateAdvanceParameters(context.function());
+        updateReturnType(context.function());
         return buildModel(context);
     }
 
     @Override
     public Map<String, List<TextEdit>> updateModel(UpdateModelContext context) {
         updateAdvanceParameters(context.function());
+        updateReturnType(context.function());
         return buildUpdateModel(context);
     }
 
@@ -181,6 +186,7 @@ public class GraphqlFunctionBuilder extends AbstractFunctionBuilder {
         if (returnTypeDesc.isPresent()) {
             FunctionReturnType returnType = functionModel.getReturnType();
             returnType.setValue(returnTypeDesc.get().type().toString().trim());
+            updateReturnTypeNullability(functionModel);
         }
         updateGraphqlParameters(functionSignatureNode, functionModel);
         functionModel.setCodedata(new Codedata(functionDefinitionNode.lineRange(), GRAPHQL, BALLERINA));
@@ -251,6 +257,13 @@ public class GraphqlFunctionBuilder extends AbstractFunctionBuilder {
         }
     }
 
+    private static void updateReturnTypeNullability(Function function) {
+        String returnType = getValueString(function.getReturnType());
+        if (returnType.endsWith(QUESTION_MARK) && Objects.nonNull(function.getProperty(GRAPHQL_NULLABLE_KEY))) {
+            function.getProperty(GRAPHQL_NULLABLE_KEY).setValue(true);
+        }
+    }
+
     public static Function getFunctionModel(FunctionDefinitionNode functionDefinitionNode) {
         Function functionModel;
         if (isInitFunction(functionDefinitionNode)) {
@@ -296,5 +309,20 @@ public class GraphqlFunctionBuilder extends AbstractFunctionBuilder {
                 parameter.setEnabled(isEnabled);
             }
         });
+    }
+
+    private static void updateReturnType(Function function) {
+        Value nullability = function.getProperty(GRAPHQL_NULLABLE_KEY);
+        FunctionReturnType returnType = function.getReturnType();
+        if (Objects.nonNull(nullability)) {
+            Object value = nullability.getValueAsObject();
+            boolean isNullable = value instanceof Boolean ? (Boolean) value : true;
+            String returnTypeStr = getValueString(returnType);
+            if (isNullable && !returnTypeStr.endsWith(QUESTION_MARK)) {
+                returnType.setValue(returnTypeStr + QUESTION_MARK);
+            } else if (!isNullable && returnTypeStr.endsWith(QUESTION_MARK)) {
+                returnType.setValue(returnTypeStr.substring(0, returnTypeStr.length() - 1).trim());
+            }
+        }
     }
 }

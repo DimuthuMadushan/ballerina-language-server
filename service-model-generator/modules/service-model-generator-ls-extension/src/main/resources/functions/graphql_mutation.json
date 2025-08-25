@@ -264,6 +264,27 @@
           "selected": false
         }
       ]
+    },
+    "typeNullability": {
+      "metadata": {
+        "label": "Nullable Field",
+        "description": "Allow field to return null values"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "FLAG",
+      "valueTypeConstraint": "",
+      "isType": false,
+      "placeholder": "{}",
+      "optional": true,
+      "advanced": false,
+      "codedata": {
+        "orgName": "ballerina",
+        "moduleName": "graphql"
+      },
+      "addNewButton": false,
+      "typeMembers": []
     }
   }
 }
